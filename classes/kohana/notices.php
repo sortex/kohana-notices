@@ -31,19 +31,22 @@ class Kohana_Notices
 	 * CSS class used for styling.
 	 *
 	 * @param	string	 $type        The type of notice
-	 * @param	string	 $key         The the key of the message to be sent to the user
+	 * @param	mixed	 $keys         The the key of the message to be sent to the user, or an array of keys
 	 * @param   array    $values      Values to replace the ones in the message using `__()`
 	 * @return	Notice
 	 */
-	public static function add($type, $key, array $values = NULL)
+	public static function add($type, $keys, array $values = NULL)
 	{
-		// The hash acts as a unique identifier.
-		Notices::$notices[$type] = array
-		(
-			'type'   => $type,
-			'key'    => $key,
-			'values' => $values,
-		);
+		foreach ( (array) $keys as $key)
+		{
+			// The hash acts as a unique identifier.
+			Notices::$notices[$type] = array
+			(
+				'type'   => $type,
+				'key'    => $key,
+				'values' => $values,
+			);
+		}
 
 		Session::instance()->set('notices', Notices::$notices);
 	}
