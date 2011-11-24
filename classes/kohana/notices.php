@@ -39,8 +39,10 @@ class Kohana_Notices
 	{
 		foreach ( (array) $keys as $key)
 		{
+			isset(Notices::$notices[$type]) OR Notices::$notices[$type] = array();
+			
 			// The hash acts as a unique identifier.
-			Notices::$notices[$type] = array
+			Notices::$notices[$type][] = array
 			(
 				'type'   => $type,
 				'key'    => $key,
